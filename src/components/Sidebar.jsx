@@ -81,7 +81,7 @@ export default function Sidebar({
       </div>
 
       {/* Scrollable list */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
         {!loading && filteredLocations.length === 0 && (
           <p className="px-6 py-10 text-sm text-gray-400 text-center">
             No places match your search.

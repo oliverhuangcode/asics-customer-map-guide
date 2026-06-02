@@ -26,8 +26,10 @@ function createMarkerIcon(color) {
 function MapResizer() {
   const map = useMap()
   useEffect(() => {
-    const id = setTimeout(() => map.invalidateSize(), 150)
-    return () => clearTimeout(id)
+    const container = map.getContainer()
+    const ro = new ResizeObserver(() => map.invalidateSize({ animate: false }))
+    ro.observe(container)
+    return () => ro.disconnect()
   }, [map])
   return null
 }
@@ -51,6 +53,14 @@ function ZoomTracker({ onZoom }) {
       onZoom(map.getZoom())
     },
   })
+  return null
+}
+
+function PopupClearer({ selectedLocation }) {
+  const map = useMap()
+  useEffect(() => {
+    if (!selectedLocation) map.closePopup()
+  }, [selectedLocation, map])
   return null
 }
 
@@ -97,12 +107,10 @@ export default function MapView({
   const [zoom, setZoom] = useState(14)
 
   useEffect(() => {
-    if (!selectedLocation) return
-    const marker = markerRefs.current[selectedLocation.id]
-    if (marker) {
-      marker.openPopup()
-    }
-  }, [selectedLocation])
+    if (!flyTarget) return
+    const marker = markerRefs.current[flyTarget.location.id]
+    if (marker && !marker.isPopupOpen()) marker.openPopup()
+  }, [flyTarget])
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
@@ -117,6 +125,7 @@ export default function MapView({
         <MapResizer />
         <MapController flyTarget={flyTarget} />
         <ZoomTracker onZoom={setZoom} />
+        <PopupClearer selectedLocation={selectedLocation} />
 
         {filteredLocations.map((loc) => (
           <Marker
