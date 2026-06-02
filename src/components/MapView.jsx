@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap, useMapEvents }
 import { getCategoryColor } from '../utils/categories.js'
 
 const MELBOURNE = [-37.8136, 144.9631]
-const LABEL_ZOOM_THRESHOLD = 15
+const LABEL_ZOOM_THRESHOLD = 14
 const TILE_URL =
   'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
 const TILE_ATTRIBUTION =
