@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Prevent Leaflet popup z-index conflicts */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  padding: 0 !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  width: 260px !important;
+}
+
+.leaflet-popup-tip-container {
+  margin-top: -1px;
+}
+
+/* Hide default Leaflet marker shadow (we use custom icons) */
+.leaflet-marker-shadow {
+  display: none;
+}
+
+/* Custom marker icon container — no background/border from Leaflet */
+.custom-marker {
+  background: none !important;
+  border: none !important;
+}
+
+/* Place name labels on map markers */
+.map-label {
+  background: white !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.12) !important;
+  padding: 2px 7px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #111827 !important;
+  white-space: nowrap !important;
+}
+.map-label::before { display: none !important; }
+
+/* Hide scrollbar while keeping scroll functionality */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
